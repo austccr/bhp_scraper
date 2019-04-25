@@ -59,9 +59,18 @@ def save_articles_in_feed(index_page, type)
   end
 end
 
-feed = 'https://www.bca.com.au/media_releases.rss'
-web_archive(feed)
-puts "Collecting items from #{feed}"
-type = 'Media release'
+feeds = [
+  ['https://www.bca.com.au/media_releases.rss', 'Media release'],
+  ['https://www.bca.com.au/submissions.rss', 'Submission'],
+  ['https://www.bca.com.au/transcripts.rss', 'Interview'],
+  ['https://www.bca.com.au/speeches.rss', 'Speech'],
+  ['https://www.bca.com.au/opinion_articles.rss', 'Opinion piece'],
+  ['https://www.bca.com.au/reports_papers.rss', 'Report'],
+]
 
-save_articles_in_feed(RestClient.get(feed), type)
+feeds.each do |url, type|
+  web_archive(url)
+  puts "Collecting items from #{url}"
+
+  save_articles_in_feed(RestClient.get(url), type)
+end
