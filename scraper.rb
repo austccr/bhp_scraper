@@ -31,7 +31,7 @@ def save_item(item, type)
     'scraped_at' => Time.now.utc.to_s,
     'published_raw' => item.at(:pubDate).text,
     'published' => parse_utc_time_or_nil(item.at(:pubDate).text),
-    'author' => item.at(:author).text,
+    'author' => item.at(:author)&.text,
     'content' => item.at(:description).text,
     'syndication' => web_archive(item.at(:link).text),
     'org' => ORG_NAME,
