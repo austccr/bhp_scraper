@@ -24,7 +24,7 @@ def parse_utc_time_or_nil(string)
   Time.parse(string).utc.to_s if string
 end
 
-def save_item(item)
+def save_item(item, type)
   article = {
     'name' => item.at(:title).text,
     'url' => item.at(:link).text,
@@ -34,12 +34,13 @@ def save_item(item)
     'author' => item.at(:author).text,
     'content' => item.at(:description).text,
     'syndication' => web_archive(item.at(:link).text),
-    'org' => ORG_NAME
+    'org' => ORG_NAME,
+    'type' => type
   }
   ScraperWiki.save_sqlite(['url'], article)
 end
 
-def save_articles_in_feed(index_page)
+def save_articles_in_feed(index_page, type)
   items = Nokogiri.parse(index_page.body).search(:item)
 
   if items.any?
@@ -52,7 +53,7 @@ def save_articles_in_feed(index_page)
         puts "Skipping #{item_link}, already saved"
       else
         puts "Saving: #{item_link}"
-        save_item(item)
+        save_item(item, type)
       end
     end
   end
@@ -61,5 +62,6 @@ end
 feed = 'https://www.bca.com.au/media_releases.rss'
 web_archive(feed)
 puts "Collecting items from #{feed}"
+type = 'Media release'
 
-save_articles_in_feed(RestClient.get(feed))
+save_articles_in_feed(RestClient.get(feed), type)
