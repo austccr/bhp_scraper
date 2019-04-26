@@ -60,12 +60,13 @@ def save_articles_in_feed(index_page, type)
 end
 
 feeds = [
+  ['https://www.strongaustralia.net/media_releases.rss', 'Media release'],
   ['https://www.bca.com.au/media_releases.rss', 'Media release'],
   ['https://www.bca.com.au/submissions.rss', 'Submission'],
   ['https://www.bca.com.au/transcripts.rss', 'Interview'],
   ['https://www.bca.com.au/speeches.rss', 'Speech'],
   ['https://www.bca.com.au/opinion_articles.rss', 'Opinion piece'],
-  ['https://www.bca.com.au/reports_papers.rss', 'Report'],
+  ['https://www.bca.com.au/reports_papers.rss', 'Report']
 ]
 
 feeds.each do |url, type|
