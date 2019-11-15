@@ -5,6 +5,10 @@ require 'json'
 
 ORG_NAME = 'BHP'
 BASE_URL = 'https://www.bhp.com'
+# TODO:
+# Add /media-and-insights/prospects
+# Add /media-and-insights/news-releases
+# to params
 INDEX_URL = 'https://www.bhp.com/api/search/GetSearchResults?searchTerm=&sortByDate=false&path=/media-and-insights/reports-and-presentations&language=en&page='
 
 def web_archive(page_url)
